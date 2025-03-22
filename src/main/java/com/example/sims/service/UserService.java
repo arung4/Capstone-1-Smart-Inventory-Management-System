@@ -1,21 +1,25 @@
 package com.example.sims.service;
 
 import com.example.sims.model.User;
-import java.util.List;
-import java.util.Optional;
+import com.example.sims.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface UserService {
 
-        // Register a new user
-        User registerUser(User user);
+@Service
+public class UserService {
+        @Autowired
 
-        // Find a user by email 
-        Optional<User> findUserByEmail(String email); 
+        private UserRepository userRepository;
 
-        // Get all users
-        List<User> getAllUsers();
-
-        // Delte a user by ID
-        void deleteuser(Long userId);
-    
+        public User registerUser(User user){
+                return userRepository.save(user);
+        }
+        
+       public User loginUser(String email, String password){
+             System.out.println("Email: " + email);
+           return userRepository.findByEmail(email)
+                  .filter(u -> u.getPassword().equals(password))
+                  .orElse(null);
+       }
 } 
