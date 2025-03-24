@@ -17,5 +17,7 @@ public class User {
    private String email;
    private String password;
    private String phoneNumber;
-   private String role; // ADMIN OR STAFF
+
+   @Enumerated(EnumType.STRING) // store role as an enum
+   private Role role; // ADMIN OR STAFF
 }
