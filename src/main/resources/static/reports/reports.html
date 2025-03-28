@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Reports</title>
+    <link rel="stylesheet" href="../css/reports.css">
+</head>
+<body>
+    <div class="reports-container">
+        <header class="reports-header">
+            <h1>Inventory Reports</h1>
+            <nav>
+                <a href="../dashboard/dashboard.html">Dashboard</a>
+                <a href="../inventory/list.html">Inventory</a>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </nav>
+        </header>
+        
+        <div class="report-controls">
+            <div class="report-type">
+                <label>
+                    <input type="radio" name="reportType" value="daily" checked> Daily Report
+                </label>
+                <label>
+                    <input type="radio" name="reportType" value="weekly"> Weekly Report
+                </label>
+            </div>
+            
+            <div class="date-range">
+                <label for="startDate">From:</label>
+                <input type="date" id="startDate">
+                
+                <label for="endDate">To:</label>
+                <input type="date" id="endDate">
+                
+                <button id="generateReportBtn" class="btn-primary">Generate Report</button>
+                <button id="exportReportBtn" class="btn-secondary">Export to CSV</button>
+            </div>
+        </div>
+        
+        <div class="report-results">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Starting Qty</th>
+                        <th>Added</th>
+                        <th>Used</th>
+                        <th>Ending Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                    <!-- Report data will be added here by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="../api/api.js"></script>
+    <!-- <script src="reports.js"></script> -->
+</body>
+</html>

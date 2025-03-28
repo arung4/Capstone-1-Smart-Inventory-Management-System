@@ -1,0 +1,131 @@
+/* reports.css - Inventory Reports */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reports-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .reports-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .reports-header h1 {
+    color: var(--primary-color);
+    margin: 0;
+  }
+  
+  .reports-header nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .reports-header a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .reports-header a:hover {
+    text-decoration: underline;
+  }
+  
+  .report-controls {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+  }
+  
+  .report-type {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .report-type label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .date-range label {
+    font-weight: 500;
+  }
+  
+  .date-range input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+  }
+  
+  .report-results {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+  }
+  
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .report-table th,
+  .report-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .report-table th {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .report-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .positive {
+    color: #4caf50;
+  }
+  
+  .negative {
+    color: #ef233c;
+  }
+  
+  @media (max-width: 768px) {
+    .date-range {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .reports-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }

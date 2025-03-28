@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Smart Inventory Management System</h1>
+            <button id="logoutBtn" class="btn-secondary">Logout</button>
+        </header>
+        
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="../inventory/list.html">Inventory</a></li>
+                <li><a href="../reports/reports.html">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <main class="dashboard-content">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total Items</h3>
+                    <p id="totalItems">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Low Stock</h3>
+                    <p id="lowStockItems">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Expiring Soon</h3>
+                    <p id="expiringItems">0</p>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <ul id="activityList">
+                    <!-- Activity items will be added here by JS -->
+                </ul>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../api/api.js"></script>
+    <!-- <script src="dashboard.js"></script> -->
+</body>
+</html>

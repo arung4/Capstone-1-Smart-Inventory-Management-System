@@ -1,0 +1,155 @@
+/* list.css - Inventory List */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --warning-color: #ff9e00;
+    --danger-color: #ef233c;
+    --success-color: #4caf50;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inventory-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .inventory-header h1 {
+    color: var(--primary-color);
+    margin: 0;
+  }
+  
+  .inventory-header nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .inventory-header a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .inventory-header a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+  }
+  
+  .inventory-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+  
+  #searchInput {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    width: 300px;
+    transition: all 0.3s ease;
+  }
+  
+  #searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+  }
+  
+  .inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .inventory-table th, 
+  .inventory-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .inventory-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+  }
+  
+  .inventory-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .status-normal {
+    background-color: var(--success-color);
+  }
+  
+  .status-warning {
+    background-color: var(--warning-color);
+  }
+  
+  .status-danger {
+    background-color: var(--danger-color);
+  }
+  
+  .action-btn {
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+  }
+  
+  .action-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+  }
+  
+  @media (max-width: 768px) {
+    .inventory-actions {
+      flex-direction: column;
+    }
+    
+    #searchInput {
+      width: 100%;
+    }
+    
+    .inventory-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
