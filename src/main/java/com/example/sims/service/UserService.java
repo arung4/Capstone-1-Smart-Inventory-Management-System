@@ -28,10 +28,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "User not found with email: " + email));
 
+        // Create authority without ROLE_PREFIX
+        String authority = "ROLE_" + user.getRole().name();
+
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities("ROLE_" + user.getRole().name())
+                .authorities(authority)
                 .build();
     }
 
