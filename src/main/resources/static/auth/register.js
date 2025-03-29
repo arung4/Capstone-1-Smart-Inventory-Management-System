@@ -14,7 +14,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     }
 
     try {
-        const response = await fetch("/api/auth/register", {
+        const response = await fetch("http://localhost:8080/api/users/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -28,7 +28,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
         if (response.ok) {
             alert("Registration successful! Redirecting to login...");
-            window.location.href = "../auth/login.html";
+            window.location.href = "../login.html";
         } else {
             const error = await response.json();
             alert(error.message || "Registration failed!");

@@ -8,72 +8,84 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load inventory data
     const loadInventory = async () => {
         try {
-            const response = await fetch('/api/inventory', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+            const response = await fetch('http://localhost:8080/api/inventory', {
+            
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            
+            // Check if data exists in response
+            if (!result.data || !Array.isArray(result.data)) {
+                throw new Error('Invalid data format from server');
+            }
+
+            console.log("API Response:", result);
+            
+            const tableBody = document.getElementById('inventoryTableBody');
+            tableBody.innerHTML = '';
+            
+            result.data.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Add class for low stock items
+                const rowClass = item.quantity < 5 ? 'low-stock' : '';
+                
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.category || 'N/A'}</td>
+                    <td>${item.price || 'N/A'}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
+                    <td class="${rowClass}">${item.quantity < 5 ? 'Low Stock' : 'In Stock'}</td>
+                    <td>
+                        <button class="btn-edit" data-id="${item.id}">Edit</button>
+                        <button class="btn-delete" data-id="${item.id}">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
             });
             
-            if (response.ok) {
-                const items = await response.json();
-                const tableBody = document.getElementById('inventoryTableBody');
-                tableBody.innerHTML = '';
-                
-                items.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.name}</td>
-                        <td>${item.category}</td>
-                        <td>${item.price}</td>
-                        <td>${item.quantity}</td>
-                        <td>${new Date(item.expiryDate).toLocaleDateString()}</td>
-                        <td class="${item.status === 'Low' ? 'status-low' : ''}">${item.status}</td>
-                        <td>
-                            <button class="btn-edit" data-id="${item.id}">Edit</button>
-                            <button class="btn-delete" data-id="${item.id}">Delete</button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
+            // Add event listeners to buttons
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const itemId = e.target.getAttribute('data-id');
+                    window.location.href = `manage.html?id=${itemId}`;
                 });
-                
-                // Add event listeners to buttons
-                document.querySelectorAll('.btn-edit').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const itemId = e.target.getAttribute('data-id');
-                        window.location.href = `manage.html?id=${itemId}`;
-                    });
-                });
-                
-                document.querySelectorAll('.btn-delete').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const itemId = e.target.getAttribute('data-id');
-                        if (confirm('Are you sure you want to delete this item?')) {
-                            try {
-                                const response = await fetch(`/api/inventory/${itemId}`, {
-                                    method: 'DELETE',
-                                    headers: {
-                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                                    }
-                                });
-                                
-                                if (response.ok) {
-                                    loadInventory(); // Refresh the list
-                                } else {
-                                    throw new Error('Failed to delete item');
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const itemId = e.target.getAttribute('data-id');
+                    if (confirm('Are you sure you want to delete this item?')) {
+                        try {
+                            const deleteResponse = await fetch(`http://localhost:8080/api/inventory/${itemId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                                 }
-                            } catch (error) {
-                                console.error('Delete error:', error);
-                                alert('Failed to delete item');
+                            });
+                            
+                            if (deleteResponse.ok) {
+                                loadInventory(); // Refresh the list
+                            } else {
+                                const errorData = await deleteResponse.json();
+                                throw new Error(errorData.message || 'Failed to delete item');
                             }
+                        } catch (error) {
+                            console.error('Delete error:', error);
+                            alert(error.message);
                         }
-                    });
+                    }
                 });
-            } else {
-                throw new Error('Failed to load inventory');
-            }
+            });
+            
         } catch (error) {
-            console.error('Inventory error:', error);
-            alert('Failed to load inventory data');
+            console.error('Inventory load error:', error);
+            alert(`Error: ${error.message}`);
         }
     };
 

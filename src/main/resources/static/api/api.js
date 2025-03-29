@@ -1,60 +1,33 @@
-// Utility functions for API calls
+// api.js - For direct browser use (without modules)
 const API_BASE_URL = 'http://localhost:8080/api';
 
 async function makeApiCall(endpoint, method = 'GET', body = null) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
+    // ... (keep existing makeApiCall implementation)
+}
+
+// Define functions as global variables instead of exporting
+window.api = {
+    login: async function(email, password) {
+        return makeApiCall('/users/login', 'POST', { email, password });
+    },
     
-    const token = localStorage.getItem('token');
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
+    register: async function(userData) {
+        return makeApiCall('/users/register', 'POST', userData);
+    },
     
-    const options = {
-        method,
-        headers
-    };
+    getInventory: async function() {
+        return makeApiCall('/inventory');
+    },
     
-    if (body) {
-        options.body = JSON.stringify(body);
-    }
+    getDashboardData: async function() {
+        return makeApiCall('/dashboard');
+    },
     
-    try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
-        
-        if (!response.ok) {
-            throw new Error(`API request failed with status ${response.status}`);
+    generateReport: async function(type, startDate, endDate) {
+        if (type === 'daily') {
+            return makeApiCall(`/reports/daily?date=${startDate}`);
+        } else {
+            return makeApiCall(`/reports/weekly?start=${startDate}&end=${endDate}`);
         }
-        
-        return await response.json();
-    } catch (error) {
-        console.error('API call error:', error);
-        throw error;
     }
-}
-
-// Example API functions
-export async function login(email, password) {
-    return makeApiCall('/auth/login', 'POST', { email, password });
-}
-
-export async function register(userData) {
-    return makeApiCall('/auth/register', 'POST', userData);
-}
-
-export async function getInventory() {
-    return makeApiCall('/inventory');
-}
-
-export async function getDashboardData() {
-    return makeApiCall('/dashboard');
-}
-
-export async function generateReport(type, startDate, endDate) {
-    if (type === 'daily') {
-        return makeApiCall(`/reports/daily?date=${startDate}`);
-    } else {
-        return makeApiCall(`/reports/weekly?start=${startDate}&end=${endDate}`);
-    }
-}
+};

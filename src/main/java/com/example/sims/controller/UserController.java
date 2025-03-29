@@ -1,5 +1,6 @@
 package com.example.sims.controller;
 
+import com.example.sims.dto.LoginRequest;
 import com.example.sims.model.Response;
 import com.example.sims.util.JwtUtil;
 import com.example.sims.model.User;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -25,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<String> loginUser(@RequestParam String email, @RequestParam String password) {
-        UserDetails userDetails = userService.loginUser(email, password);
+    public Response<String> loginUser(@RequestBody LoginRequest loginRequest) {
+        UserDetails userDetails = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
         if (userDetails != null) {
             String token = jwtUtil.generateToken(userDetails);
             return new Response<>(200, "Login successful", token);

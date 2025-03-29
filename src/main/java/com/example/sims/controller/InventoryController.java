@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/api/inventory")
 public class InventoryController {
@@ -22,7 +23,12 @@ public class InventoryController {
         List<InventoryItem> items = inventoryService.getAllInventoryItems();
         return new Response<>(HttpStatus.OK.value(), "Items retrieved successfully", items);
     }
-
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')") // Only ADMIN and STAFF can view this item
+    public Response<InventoryItem> getItemById(@PathVariable Long id) {
+        InventoryItem item = inventoryService.getItemById(id);
+        return new Response<>(HttpStatus.OK.value(), "Item retrieved successfully", item);
+    }
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can add the item
     public Response<InventoryItem> addItem(@RequestBody InventoryItem item) {
