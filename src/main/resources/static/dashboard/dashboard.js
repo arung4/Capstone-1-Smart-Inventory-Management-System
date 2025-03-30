@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    }
     // Load dashboard data
     try {
-        const response = await fetch('/api/dashboard', {
+        const response = await fetch('http://localhost:8080/api/dashboard', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             document.getElementById('totalItems').textContent = data.totalItems;
             document.getElementById('lowStockItems').textContent = data.lowStockItems;
-            document.getElementById('expiringItems').textContent = data.expiringItems;
+            document.getElementById('expiringSoonItems').textContent = data.expiringSoonItems;
 
             // Populate activity list
             const activityList = document.getElementById('activityList');

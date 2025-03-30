@@ -19,4 +19,16 @@ public interface InventoryRepository extends JpaRepository<InventoryItem, Long> 
     @Query("SELECT i FROM InventoryItem i WHERE i.lastUpdated BETWEEN :start AND :end")
     List<InventoryItem> findByLastUpdatedBetween(@Param("start") LocalDateTime start,
                                                  @Param("end") LocalDateTime end);
+
+    // Count all items
+    @Query("SELECT COUNT(i) FROM InventoryItem i")
+    int countAllItems();
+
+    // Count low stock items (quantity < threshold)
+    @Query("SELECT COUNT(i) FROM InventoryItem i WHERE i.quantity < :threshold")
+    int countLowStockItems(int threshold);
+
+    // Count items expiring soon (between today and future date)
+    @Query("SELECT COUNT(i) FROM InventoryItem i WHERE i.expiryDate BETWEEN :startDate AND :endDate")
+    int countExpiringSoonItems(LocalDate startDate, LocalDate endDate);
 }

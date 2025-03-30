@@ -44,6 +44,7 @@ public class SecurityConfig {
 
                     // Api for reports generations
                     .requestMatchers(HttpMethod.GET, "/api/reports/**").hasAnyRole("ADMIN", "STAFF")
+                    .requestMatchers(HttpMethod.GET, "/api/dashboard").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
