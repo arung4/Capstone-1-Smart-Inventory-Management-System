@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    const userRole = getRoleFromToken();
+
+       if (userRole[0] === "ROLE_STAFF") {
+           // Hide Add Item button
+           document.getElementById("addItemBtn").style.display = 'none';
+
+           // Remove Actions header
+           const headers = document.querySelectorAll('th');
+           headers[headers.length - 1].remove(); // Remove last header (Actions)
+
+       }
+
+    console.log("Role: ", userRole[0]);
     // Load inventory data
     const loadInventory = async () => {
         try {
@@ -46,6 +59,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <button class="btn-delete" data-id="${item.id}">Delete</button>
                     </td>
                 `;
+
+                 if (userRole[0] === 'ROLE_STAFF') {
+                                row.querySelector('.btn-edit').style.display = 'none';
+                                row.querySelector('.btn-delete').style.display = 'none';
+                        }
+
                 tableBody.appendChild(row);
             });
             

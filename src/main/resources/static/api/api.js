@@ -31,3 +31,20 @@ window.api = {
         }
     }
 };
+
+
+// api.js - Add this new function
+window.auth = {
+  getUserRole: function() {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role; // Returns "ADMIN" or "STAFF"
+    } catch (e) {
+      console.error("Token decode error:", e);
+      return null;
+    }
+  }
+};

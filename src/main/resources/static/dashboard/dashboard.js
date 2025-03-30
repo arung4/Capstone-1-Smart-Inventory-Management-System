@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+     const userRole = getRoleFromToken();
+     console.log("role: ", userRole)
+   // Hide stats if user if from staff
+   if(userRole[0] === "ROLE_STAFF"){
+        document.querySelector('.dashboard-content').style.display = 'none';
+   }
     // Load dashboard data
     try {
         const response = await fetch('/api/dashboard', {
@@ -12,13 +18,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
-        
+
         if (response.ok) {
             const data = await response.json();
             document.getElementById('totalItems').textContent = data.totalItems;
             document.getElementById('lowStockItems').textContent = data.lowStockItems;
             document.getElementById('expiringItems').textContent = data.expiringItems;
-            
+
             // Populate activity list
             const activityList = document.getElementById('activityList');
             data.recentActivities.forEach(activity => {

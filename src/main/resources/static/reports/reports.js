@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Logout button
     document.getElementById('logoutBtn').addEventListener('click', () => {
         localStorage.removeItem('token');
-        window.location.href = '../../auth/login.html';
+        window.location.href = '../auth/login.html';
     });
 
     function populateReportTable(data) {
