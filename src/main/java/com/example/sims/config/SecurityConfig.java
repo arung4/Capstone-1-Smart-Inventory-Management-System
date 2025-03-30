@@ -38,9 +38,12 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/inventory/add").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/inventory/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/inventory/**").hasRole("ADMIN")
-                .requestMatchers("/api/suppliers/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/reports/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_STAFF")
-                .requestMatchers("/api/activity-logs/**").hasAuthority("ROLE_ADMIN")
+                
+                // Alerts access - ADMIN only
+                .requestMatchers(HttpMethod.GET, "/api/alerts/**").hasRole("ADMIN")
+
+                    // Api for reports generations
+                    .requestMatchers(HttpMethod.GET, "/api/reports/**").hasAnyRole("ADMIN", "STAFF")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
@@ -54,7 +57,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500"));
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:63342"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization"));
