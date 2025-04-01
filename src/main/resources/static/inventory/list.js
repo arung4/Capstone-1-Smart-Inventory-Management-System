@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadInventory = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/inventory', {
+              headers: {
+                      'Authorization': `Bearer ${localStorage.getItem('token')}`
+                     }
             
             });
 
@@ -44,25 +47,51 @@ document.addEventListener('DOMContentLoaded', async () => {
             result.data.forEach(item => {
                 const row = document.createElement('tr');
                 
-                // Add class for low stock items
-                const rowClass = item.quantity < 5 ? 'low-stock' : '';
+                 // Determine quantity class
+                      const quantityClass = item.quantity < 5 ? 'quantity-low' : 'quantity-normal';
+
+                      // Determine expiry status
+                      const expiryDate = new Date(item.expiryDate);
+                      const today = new Date();
+                      const daysToExpiry = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
+                      const expiryClass = daysToExpiry <= 10 ? 'expiry-soon' : 'expiry-normal';
+
+                      // Determine status badge
+                      let statusClass = 'status-normal';
+                      let statusText = 'Normal';
+
+                      if (item.quantity < 5) {
+                          statusClass = 'status-danger';
+                          statusText = 'Low';
+                      } else if (daysToExpiry <= 10) {
+                          statusClass = 'status-warning';
+                          statusText = 'Expiring';
+                      }
+
                 
                 row.innerHTML = `
                     <td>${item.name}</td>
                     <td>${item.category || 'N/A'}</td>
-                    <td>${item.price || 'N/A'}</td>
-                    <td>${item.quantity}</td>
-                    <td>${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
-                    <td class="${rowClass}">${item.quantity < 5 ? 'Low Stock' : 'In Stock'}</td>
+                    <td class = "price-cell">889</td>
+                    <td class= "${quantityClass}" >${item.quantity}</td>
+                    <td class = "${expiryClass}">${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                     <td>
-                        <button class="btn-edit" data-id="${item.id}">Edit</button>
-                        <button class="btn-delete" data-id="${item.id}">Delete</button>
+                                        <div class="action-btns">
+                                            <button class="action-btn edit-btn" data-id="${item.id}">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                            <button class="action-btn delete-btn" data-id="${item.id}">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </div>
+
                     </td>
                 `;
 
                  if (userRole[0] === 'ROLE_STAFF') {
-                                row.querySelector('.btn-edit').style.display = 'none';
-                                row.querySelector('.btn-delete').style.display = 'none';
+                                row.querySelector('.edit-btn').style.display = 'none';
+                                row.querySelector('.delete-btn').style.display = 'none';
                         }
 
                 tableBody.appendChild(row);

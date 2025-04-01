@@ -28,21 +28,53 @@
                     <p id="totalItems">0</p>
                 </div>
                 <div class="stat-card">
-                    <h3>Low Stock</h3>
+                    <h3>Low Stock Items</h3>
                     <p id="lowStockItems">0</p>
                 </div>
                 <div class="stat-card">
-                    <h3>Expiring Soon</h3>
+                    <h3>Expiring Soon Items</h3>
                     <p id="expiringSoonItems">0</p>
                 </div>
             </div>
             
             <div class="recent-activity">
                 <h2>Recent Activity</h2>
-                <ul id="activityList">
                     <!-- Activity items will be added here by JS -->
-                </ul>
+                    <table id="activityList">
+                        <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Description</th>
+                            <th>User</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Stock movements will be added here by JS -->
+                        </tbody>
+                    </table>
             </div>
+
+<!--            To show the stock movements -->
+            <!-- Add this section below the recent-activity div -->
+            <div class="stock-movements" id="stockMovementsSection">
+                <h2>Recent Stock Movements</h2>
+                <table id="stockMovementsTable">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Action</th>
+                        <th>Quantity</th>
+                        <th>User</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Stock movements will be added here by JS -->
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
     

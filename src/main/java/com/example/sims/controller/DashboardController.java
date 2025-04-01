@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 // DashboardController.java
 @RestController
 @RequestMapping("/api/dashboard")
-@PreAuthorize("hasRole('ADMIN')") // Only accessible by ADMIN
+@PreAuthorize("hasAnyRole('ADMIN', 'STAFF')") // Only accessible by ADMIN
 public class DashboardController {
 
     @Autowired

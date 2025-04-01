@@ -2,6 +2,8 @@ package com.example.sims.service;
 
 import com.example.sims.model.User;
 import com.example.sims.repository.UserRepository;
+import com.example.sims.util.JwtUtil;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +17,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final JwtUtil jwtUtil;
     // Changed from @Autowired to constructor injection
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil  = jwtUtil;
     }
 
     @Override
@@ -30,7 +33,6 @@ public class UserService implements UserDetailsService {
 
         // Create authority without ROLE_PREFIX
         String authority = "ROLE_" + user.getRole().name();
-
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
@@ -40,16 +42,11 @@ public class UserService implements UserDetailsService {
 
     public UserDetails loginUser(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
-        
+
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            // Use passwordEncoder.matches() for secure password comparison
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return org.springframework.security.core.userdetails.User
-                        .withUsername(user.getEmail())
-                        .password(user.getPassword())
-                        .authorities("ROLE_" + user.getRole().name())
-                        .build();
+                return loadUserByUsername(email);
             }
         }
         return null;
