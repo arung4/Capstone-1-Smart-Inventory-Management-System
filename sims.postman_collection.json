@@ -1,0 +1,1909 @@
+{
+	"info": {
+		"_postman_id": "a4f188aa-63c7-4bad-86f7-a48e7ea1de69",
+		"name": "sims",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30383076"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rohit Kumar\",\r\n    \"email\": \"rohit123@gmail.com\",\r\n    \"password\": \"rohit123\",\r\n    \"phoneNumber\": \"8945126378\",\r\n    \"role\": \"staff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"rohit123@gmail.com\",\r\n    \"password\":\"rohit123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/login?email=rohit123@gmail.com&password=rohit123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "rohit123@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "rohit123"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "logi user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer ",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :\"arun123@gmail.com\",\r\n    \"password\":\"arun123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:14:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Login successful\",\n    \"data\": \"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "inventory",
+			"item": [
+				{
+					"name": "get all items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/inventory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all items",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/inventory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:16:35 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Items retrieved successfully\",\n    \"data\": [\n        {\n            \"id\": 4,\n            \"name\": \"Rawa\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier A\"\n        },\n        {\n            \"id\": 6,\n            \"name\": \"Besan\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier B\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Sattu\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier C\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"paneer\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier C\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"pane\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier C\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"nariyal\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier C\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Mobile\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"Vegetable\",\n            \"supplier\": \"Supplier D\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Maida new\",\n            \"quantity\": 10,\n            \"expiryDate\": \"2025-10-28\",\n            \"price\": 240,\n            \"category\": \"food\",\n            \"supplier\": \"Supplier B\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Slice Mango Juice\",\n            \"quantity\": 3,\n            \"expiryDate\": \"2025-04-29\",\n            \"price\": 50,\n            \"category\": \"beverage\",\n            \"supplier\": \"Arun Parihar\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Pasta\",\n            \"quantity\": 2,\n            \"expiryDate\": \"2025-03-29\",\n            \"price\": 70,\n            \"category\": \"beverage\",\n            \"supplier\": \"Arun Parihar\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"Maggi\",\n            \"quantity\": 2,\n            \"expiryDate\": \"2025-05-29\",\n            \"price\": 70,\n            \"category\": \"beverage\",\n            \"supplier\": \"Arun Parihar\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"Apple Juice\",\n            \"quantity\": 2,\n            \"expiryDate\": \"2025-05-29\",\n            \"price\": 70,\n            \"category\": \"Drinks\",\n            \"supplier\": \"Arun Parihar\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Flour\",\n            \"quantity\": 5,\n            \"expiryDate\": \"2023-12-31\",\n            \"price\": 240,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier A\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"LadyFinger\",\n            \"quantity\": 4,\n            \"expiryDate\": \"2025-04-05\",\n            \"price\": 0,\n            \"category\": \"Food\",\n            \"supplier\": \"Supplier A\",\n            \"lastUpdated\": \"2025-03-30T10:27:21.649839\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"Bananas\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 70,\n            \"category\": \"Fruits\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-03-31T11:36:21.506334\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Mangoes\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 70,\n            \"category\": \"Fruits\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-03-31T14:11:28.211174\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Potato\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 70,\n            \"category\": \"Vegetables\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-03-31T17:25:46.238399\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "add an item",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMTU4NjE5LCJleHAiOjE3NDMyNDUwMTl9.5XF_94d5rXQRd7rfHwmVxnSS-k-anT0G7RIjDC1nlWY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mobile\",\r\n    \"quantity\": 10,\r\n    \"expiryDate\": \"2025-10-28\",\r\n    \"price\": 240.00,\r\n    \"category\": \"Vegetable\",\r\n    \"supplier\": \"Supplier D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/inventory/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"inventory",
+								"add"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add an item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Oreo Biscuits\",\r\n    \"quantity\": 12,\r\n    \"expiryDate\": \"2025-04-10\",\r\n    \"price\": 10.00,\r\n    \"category\": \"snakcs\",\r\n    \"supplier\": \"Arun Parihar\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/inventory/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"inventory",
+										"add"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:19:27 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"message\": \"Item added successfully\",\n    \"data\": {\n        \"id\": 23,\n        \"name\": \"Oreo Biscuits\",\n        \"quantity\": 12,\n        \"expiryDate\": \"2025-04-10\",\n        \"price\": 10,\n        \"category\": \"snakcs\",\n        \"supplier\": \"Arun Parihar\",\n        \"lastUpdated\": \"2025-04-02T17:49:27.7147137\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "edit an item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMTU4MjQ2LCJleHAiOjE3NDMyNDQ2NDZ9.UWHkTEnESegPvsiJpAGpUo8bRxySWi0nlZZbRm4zt3Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Brinjal 10\",\r\n    \"quantity\": 20,\r\n    \"expiryDate\": \"2023-12-31\",\r\n    \"category\": \"Food\",\r\n    \"supplier\": \"Supplier A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/inventory/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"inventory",
+								"11"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "edit an item",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Oreo Biscuits\",\r\n    \"quantity\": 20,\r\n    \"expiryDate\": \"2025-04-10\",\r\n    \"price\": 10.00,\r\n    \"category\": \"snacks\",\r\n    \"supplier\": \"Arun Parihar\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/inventory/23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"inventory",
+										"23"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:22:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Item updated successfully\",\n    \"data\": {\n        \"id\": 23,\n        \"name\": \"Oreo Biscuits\",\n        \"quantity\": 20,\n        \"expiryDate\": \"2025-04-10\",\n        \"price\": 10,\n        \"category\": \"snacks\",\n        \"supplier\": \"Arun Parihar\",\n        \"lastUpdated\": \"2025-04-02T17:52:55.1032005\"\n    }\n}"
+						},
+						{
+							"name": "edit an item",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Oreo Biscuits\",\r\n    \"quantity\": 20,\r\n    \"expiryDate\": \"2025-04-10\",\r\n    \"price\": 10.00,\r\n    \"category\": \"snacks\",\r\n    \"supplier\": \"Arun Parihar\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/inventory/23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"inventory",
+										"23"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:22:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Item updated successfully\",\n    \"data\": {\n        \"id\": 23,\n        \"name\": \"Oreo Biscuits\",\n        \"quantity\": 20,\n        \"expiryDate\": \"2025-04-10\",\n        \"price\": 10,\n        \"category\": \"snacks\",\n        \"supplier\": \"Arun Parihar\",\n        \"lastUpdated\": \"2025-04-02T17:52:55.1032005\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete an item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMTU4MjQ2LCJleHAiOjE3NDMyNDQ2NDZ9.UWHkTEnESegPvsiJpAGpUo8bRxySWi0nlZZbRm4zt3Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/inventory/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"inventory",
+								"11"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNDIyMDY0LCJleHAiOjE3NDM1MDg0NjR9.qZqD8C94w8pEhRHLumL2Ch_cU1BEEl5JF7soD2QAGDg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/inventory/22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"inventory",
+								"22"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get item by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/inventory/22",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"inventory",
+										"22"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:34:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Item retrieved successfully\",\n    \"data\": {\n        \"id\": 22,\n        \"name\": \"Potato\",\n        \"quantity\": 20,\n        \"expiryDate\": \"2025-04-10\",\n        \"price\": 70,\n        \"category\": \"Vegetables\",\n        \"supplier\": \"Arun Parihar\",\n        \"lastUpdated\": \"2025-03-31T17:25:46.238399\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "alerts",
+			"item": [
+				{
+					"name": "get alerts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "daily reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMzEwNTU2LCJleHAiOjE3NDMzOTY5NTZ9.GWOh30L-KDGF1PJkKUDqgEY3s-8z_ksaVZrV9AmOgeY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/daily",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"daily"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/reports/daily",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"reports",
+										"daily"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Disposition",
+									"value": "attachment;filename=daily_inventory_report.csv"
+								},
+								{
+									"key": "Accept-Ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/csv"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:41:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Date,Item Name,Category,Current Quantity,Price,Status\n2025-04-02,\"Oreo Biscuits\",\"snacks\",20,10.0,OK\n"
+						}
+					]
+				},
+				{
+					"name": "custom report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMzEwNTU2LCJleHAiOjE3NDMzOTY5NTZ9.GWOh30L-KDGF1PJkKUDqgEY3s-8z_ksaVZrV9AmOgeY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/custom?startDate=2025-03-01&endDate=2025-03-29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"custom"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-03-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-03-29"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "weekly reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzMzEwNTU2LCJleHAiOjE3NDMzOTY5NTZ9.GWOh30L-KDGF1PJkKUDqgEY3s-8z_ksaVZrV9AmOgeY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/weekly",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"weekly"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JSON daily reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/daily-json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"daily-json"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "JSON daily reports",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/reports/daily-json",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"reports",
+										"daily-json"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:41:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"date\": \"2025-04-02\",\n        \"name\": \"Oreo Biscuits\",\n        \"category\": \"snacks\",\n        \"quantity\": 20,\n        \"price\": 10,\n        \"status\": \"OK\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "JSON weekly reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/weekly-json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"weekly-json"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "JSON weekly reports Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/reports/weekly-json",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"reports",
+										"weekly-json"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:45:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"date\": \"2025-03-30\",\n        \"name\": \"LadyFinger\",\n        \"category\": \"Food\",\n        \"quantity\": 4,\n        \"price\": 0,\n        \"status\": \"LOW_STOCK\"\n    },\n    {\n        \"date\": \"2025-03-31\",\n        \"name\": \"Bananas\",\n        \"category\": \"Fruits\",\n        \"quantity\": 20,\n        \"price\": 70,\n        \"status\": \"OK\"\n    },\n    {\n        \"date\": \"2025-03-31\",\n        \"name\": \"Mangoes\",\n        \"category\": \"Fruits\",\n        \"quantity\": 20,\n        \"price\": 70,\n        \"status\": \"OK\"\n    },\n    {\n        \"date\": \"2025-03-31\",\n        \"name\": \"Potato\",\n        \"category\": \"Vegetables\",\n        \"quantity\": 20,\n        \"price\": 70,\n        \"status\": \"OK\"\n    },\n    {\n        \"date\": \"2025-04-02\",\n        \"name\": \"Oreo Biscuits\",\n        \"category\": \"snacks\",\n        \"quantity\": 20,\n        \"price\": 10,\n        \"status\": \"OK\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "JSON custom report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/reports/custom-json?startDate=2025-03-01&endDate=2025-03-29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reports",
+								"custom-json"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-03-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-03-29"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "JSON custom report",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/reports/custom-json?startDate=2025-03-01&endDate=2025-03-29",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"reports",
+										"custom-json"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2025-03-01"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-03-29"
+										},
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:47:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "dashboard",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/dashboard",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"dashboard"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/dashboard",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"dashboard"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 13:48:23 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"totalItems\": 16,\n    \"lowStockItems\": 5,\n    \"expiringSoonItems\": 6\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Activity logs",
+			"item": [
+				{
+					"name": "recent acitivities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/activities/recent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"activities",
+								"recent"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "recent acitivities",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/activities/recent",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"activities",
+										"recent"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:52:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 87,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-02T18:22:38.571034\"\n    },\n    {\n        \"id\": 86,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed inventory item: Potato\",\n        \"createdAt\": \"2025-04-02T18:04:39.888662\"\n    },\n    {\n        \"id\": 85,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_UPDATE\",\n        \"description\": \"Updated item: Oreo Biscuits\",\n        \"createdAt\": \"2025-04-02T17:52:55.143884\"\n    },\n    {\n        \"id\": 84,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT\",\n        \"description\": \"ADD 8 units of Oreo Biscuits\",\n        \"createdAt\": \"2025-04-02T17:52:55.135387\"\n    },\n    {\n        \"id\": 83,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT\",\n        \"description\": \"ADD 12 units of Oreo Biscuits\",\n        \"createdAt\": \"2025-04-02T17:49:27.738881\"\n    },\n    {\n        \"id\": 82,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed all inventory items\",\n        \"createdAt\": \"2025-04-02T17:46:35.620582\"\n    },\n    {\n        \"id\": 81,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT_VIEW\",\n        \"description\": \"Viewed stock movements\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:08:16.894632\"\n    },\n    {\n        \"id\": 80,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:08:16.863479\"\n    },\n    {\n        \"id\": 79,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed all inventory items\",\n        \"createdAt\": \"2025-04-01T12:07:55.614268\"\n    },\n    {\n        \"id\": 78,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT_VIEW\",\n        \"description\": \"Viewed stock movements\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:07:27.138655\"\n    },\n    {\n        \"id\": 77,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:07:27.107479\"\n    },\n    {\n        \"id\": 76,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT_VIEW\",\n        \"description\": \"Viewed stock movements\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:06:34.805203\"\n    },\n    {\n        \"id\": 75,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:06:34.76229\"\n    },\n    {\n        \"id\": 74,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed all inventory items\",\n        \"createdAt\": \"2025-04-01T12:06:19.352174\"\n    },\n    {\n        \"id\": 73,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT_VIEW\",\n        \"description\": \"Viewed stock movements\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:06:12.883771\"\n    },\n    {\n        \"id\": 72,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:06:12.848979\"\n    },\n    {\n        \"id\": 71,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed all inventory items\",\n        \"createdAt\": \"2025-04-01T12:06:10.053254\"\n    },\n    {\n        \"id\": 70,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"STOCK_MOVEMENT_VIEW\",\n        \"description\": \"Viewed stock movements\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:05:47.664427\"\n    },\n    {\n        \"id\": 69,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"ACTIVITY_VIEW\",\n        \"description\": \"Viewed acitivity logs\",\n        \"ipAddress\": \"0:0:0:0:0:0:0:1\",\n        \"createdAt\": \"2025-04-01T12:05:47.633845\"\n    },\n    {\n        \"id\": 68,\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"activityType\": \"INVENTORY_VIEW\",\n        \"description\": \"Viewed all inventory items\",\n        \"createdAt\": \"2025-04-01T11:49:21.408697\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "stock movements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/activities/stock-movements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"activities",
+								"stock-movements"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "stock movements",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFydW4xMjNAZ21haWwuY29tIiwiaWF0IjoxNzQzNTk2MDY0LCJleHAiOjE3NDM2ODI0NjR9.0YzscRwUv92E1rXdwobCR3Ew54E5FqvYrpRCsTumIxE",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/activities/stock-movements",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"activities",
+										"stock-movements"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Apr 2025 12:54:27 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 4,\n        \"inventoryItem\": {\n            \"id\": 23,\n            \"name\": \"Oreo Biscuits\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 10,\n            \"category\": \"snacks\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-04-02T17:52:55.103201\"\n        },\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"movementType\": \"ADD\",\n        \"quantityChange\": 8,\n        \"previousQuantity\": 12,\n        \"newQuantity\": 20,\n        \"movementDate\": \"2025-04-02T17:52:55.126595\",\n        \"notes\": \"Manual adjustment\"\n    },\n    {\n        \"id\": 3,\n        \"inventoryItem\": {\n            \"id\": 23,\n            \"name\": \"Oreo Biscuits\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 10,\n            \"category\": \"snacks\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-04-02T17:52:55.103201\"\n        },\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"movementType\": \"ADD\",\n        \"quantityChange\": 12,\n        \"previousQuantity\": 0,\n        \"newQuantity\": 12,\n        \"movementDate\": \"2025-04-02T17:49:27.726984\",\n        \"notes\": \"Initial stock addition\"\n    },\n    {\n        \"id\": 2,\n        \"inventoryItem\": {\n            \"id\": 22,\n            \"name\": \"Potato\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 70,\n            \"category\": \"Vegetables\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-03-31T17:25:46.238399\"\n        },\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"movementType\": \"ADD\",\n        \"quantityChange\": 8,\n        \"previousQuantity\": 12,\n        \"newQuantity\": 20,\n        \"movementDate\": \"2025-03-31T17:25:46.271736\",\n        \"notes\": \"Manual adjustment\"\n    },\n    {\n        \"id\": 1,\n        \"inventoryItem\": {\n            \"id\": 22,\n            \"name\": \"Potato\",\n            \"quantity\": 20,\n            \"expiryDate\": \"2025-04-10\",\n            \"price\": 70,\n            \"category\": \"Vegetables\",\n            \"supplier\": \"Arun Parihar\",\n            \"lastUpdated\": \"2025-03-31T17:25:46.238399\"\n        },\n        \"user\": {\n            \"id\": 7,\n            \"name\": \"Arun Parihar\",\n            \"email\": \"arun123@gmail.com\",\n            \"password\": \"$2a$10$Vswuq/wuri0RwdTuhB2Dw.r0DimWeOHqgPExXMXjI3PBseTpJ.OTm\",\n            \"phoneNumber\": \"9302481268\",\n            \"role\": \"ADMIN\"\n        },\n        \"movementType\": \"ADD\",\n        \"quantityChange\": 12,\n        \"previousQuantity\": 0,\n        \"newQuantity\": 12,\n        \"movementDate\": \"2025-03-31T17:25:25.856501\",\n        \"notes\": \"Initial stock addition\"\n    }\n]"
+						}
+					]
+				}
+			]
+		}
+	]
+}
