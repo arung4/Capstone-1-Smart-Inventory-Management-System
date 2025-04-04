@@ -8,58 +8,66 @@
 </head>
 <body>
 <div class="reports-container">
-    <header class="reports-header">
-        <h1>Inventory Reports</h1>
-        <nav>
-            <a href="../dashboard/dashboard.html">Dashboard</a>
-            <a href="../inventory/list.html">Inventory</a>
-            <button id="logoutBtn" class="btn-secondary">Logout</button>
-        </nav>
+    <header class="dashboard-header">
+        <h1>Smart Inventory Management System</h1>
+        <button id="logoutBtn" class="btn-secondary">Logout</button>
     </header>
 
-    <div class="report-controls">
-        <div class="report-type">
-            <label>
-                <input type="radio" name="reportType" value="daily" checked> Daily Report
-            </label>
-            <label>
-                <input type="radio" name="reportType" value="weekly"> Weekly Report
-            </label>
-            <label>
-                <input type="radio" name="reportType" value="custom"> Custom Date Range
-            </label>
-        </div>
+    <nav class="dashboard-nav">
+        <ul>
+            <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+            <li><a href="../inventory/list.html" >Inventory</a></li>
+            <li><a href="#" class="active">Reports</a></li>
+        </ul>
+    </nav>
 
-        <div class="date-range">
-            <div id="customDateRange" style="display: none;">
-                <label for="startDate">From:</label>
-                <input type="date" id="startDate">
+    <div class = "report-content">
 
-                <label for="endDate">To:</label>
-                <input type="date" id="endDate">
+        <div class="report-controls">
+            <div class="report-type">
+                <label>
+                    <input type="radio" name="reportType" value="daily" checked> Daily Report
+                </label>
+                <label>
+                    <input type="radio" name="reportType" value="weekly"> Weekly Report
+                </label>
+                <label>
+                    <input type="radio" name="reportType" value="custom"> Custom Date Range
+                </label>
             </div>
 
-            <button id="generateReportBtn" class="btn-primary">Generate Report</button>
-            <button id="exportReportBtn" class="btn-secondary">Export to CSV</button>
-        </div>
-    </div>
+            <div class="date-range">
+                <div id="customDateRange" style="display: none;">
+                    <label for="startDate">From:</label>
+                    <input type="date" id="startDate">
 
-    <div class="report-results">
-        <table class="report-table">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Item Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody id="reportTableBody">
-            <!-- Report data will be added here by JS -->
-            </tbody>
-        </table>
+                    <label for="endDate">To:</label>
+                    <input type="date" id="endDate">
+                </div>
+
+                <button id="generateReportBtn" class="btn-primary">Generate Report</button>
+                <button id="exportReportBtn" class="btn-primary">Export to CSV</button>
+            </div>
+        </div>
+
+        <div class="report-results">
+            <table class="report-table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Item Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                <!-- Report data will be added here by JS -->
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 

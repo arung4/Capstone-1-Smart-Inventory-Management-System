@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
@@ -96,7 +98,7 @@ public class InventoryController {
 
         String token = authHeader.substring(7);
         InventoryItem item = inventoryService.getItemById(id);
-        inventoryService.deleteItem(id);
+
 
         // Log the deletion with the quantity being removed
         activityLogService.logStockMovement(
@@ -109,6 +111,8 @@ public class InventoryController {
 
         activityLogService.logActivity(token, "INVENTORY_DELETE",
                 "Deleted item: " + item.getName(), null);
+
+        inventoryService.deleteItem(id);
 
         return new Response<>(HttpStatus.OK.value(), "Item deleted successfully", null);
     }

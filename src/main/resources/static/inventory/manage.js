@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // If editing existing item, load its data
     if (itemId) {
+        document.querySelector(".manage-title").innerText = "Edit Item";
         await loadItemData(itemId);
     }
 

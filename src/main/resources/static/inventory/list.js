@@ -54,28 +54,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                       const expiryDate = new Date(item.expiryDate);
                       const today = new Date();
                       const daysToExpiry = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
-                      const expiryClass = daysToExpiry <= 10 ? 'expiry-soon' : 'expiry-normal';
 
-                      // Determine status badge
-                      let statusClass = 'status-normal';
-                      let statusText = 'Normal';
 
-                      if (item.quantity < 5) {
-                          statusClass = 'status-danger';
-                          statusText = 'Low';
-                      } else if (daysToExpiry <= 10) {
-                          statusClass = 'status-warning';
-                          statusText = 'Expiring';
-                      }
+                      // expiry status logic
+                      let expiryStatusClass = "status-normal";
+                      let expiryStatusText = "Normal";
 
-                
+                     if (daysToExpiry < 0) {
+                                        expiryStatusClass = 'status-danger';
+                                        expiryStatusText = 'Expired';
+                                    } else if (daysToExpiry <= 10) {
+                                        expiryStatusClass = 'status-warning';
+                                        expiryStatusText = 'Expiring Soon';
+                                    }
+
                 row.innerHTML = `
                     <td>${item.name}</td>
                     <td>${item.category || 'N/A'}</td>
-                    <td class = "price-cell">889</td>
+                    <td class = "price-cell">₹${item.price.toFixed(2)}</td>
                     <td class= "${quantityClass}" >${item.quantity}</td>
-                    <td class = "${expiryClass}">${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
+                    <td><span class="status-badge ${expiryStatusClass}">${expiryStatusText}</span></td>
                     <td>
                                         <div class="action-btns">
                                             <button class="action-btn edit-btn" data-id="${item.id}">
@@ -98,14 +97,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             
             // Add event listeners to buttons
-            document.querySelectorAll('.btn-edit').forEach(btn => {
+            document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const itemId = e.target.getAttribute('data-id');
                     window.location.href = `manage.html?id=${itemId}`;
                 });
             });
             
-            document.querySelectorAll('.btn-delete').forEach(btn => {
+            document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const itemId = e.target.getAttribute('data-id');
                     if (confirm('Are you sure you want to delete this item?')) {

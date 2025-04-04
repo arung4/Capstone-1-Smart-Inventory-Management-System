@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +26,10 @@ public class InventoryItem {
     private String supplier;
 
 
+    // Mapping to stock_movements
+
+    @OneToMany(mappedBy = "inventoryItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StockMovement> stockMovements = new ArrayList<>();
 
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;

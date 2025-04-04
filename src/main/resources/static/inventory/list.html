@@ -8,22 +8,26 @@
 </head>
 <body>
     <div class="inventory-container">
-        <header class="inventory-header">
-            <h1>Inventory Management</h1>
-            <nav>
-                <a href="../dashboard/dashboard.html">Dashboard</a>
-                <a href="../reports/reports.html">Reports</a>
-                <button id="logoutBtn" class="btn-secondary">Logout</button>
-            </nav>
+        <header class="dashboard-header">
+            <h1>Smart Inventory Management System</h1>
+            <button id="logoutBtn" class="btn-secondary">Logout</button>
         </header>
-        
-        <div class="inventory-actions">
-            <button id="addItemBtn" class="btn-primary">Add New Item</button>
-            <input type="text" id="searchInput" placeholder="Search inventory...">
-        </div>
-        
-        <table class="inventory-table">
-            <thead>
+
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="#" class="active">Inventory</a></li>
+                <li><a href="../reports/reports.html">Reports</a></li>
+            </ul>
+        </nav>
+        <div class = "inventory-container">
+            <div class="inventory-actions">
+                <button id="addItemBtn" class="btn-primary">Add New Item</button>
+                <input type="text" id="searchInput" placeholder="Search inventory...">
+            </div>
+
+            <table class="inventory-table">
+                <thead>
                 <tr>
                     <th>Name</th>
                     <th>Category</th>
@@ -33,13 +37,13 @@
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody id="inventoryTableBody">
+                </thead>
+                <tbody id="inventoryTableBody">
                 <!-- Inventory items will be added here by JS -->
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-    
     <script src="../auth/auth.js"></script>
     <script src="list.js"></script>
 </body>

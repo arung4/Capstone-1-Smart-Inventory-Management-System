@@ -33,7 +33,7 @@ public class InventoryService {
     }
 
     // get an inventory item by id
-    public InventoryItem getItemById(Long Id){
+    public <Optional>InventoryItem getItemById(Long Id){
         return inventoryRepository.findById(Id).orElse(null);
     }
     // get inventory items by category
