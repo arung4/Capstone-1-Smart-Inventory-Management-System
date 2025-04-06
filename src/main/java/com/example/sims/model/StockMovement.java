@@ -1,6 +1,7 @@
 package com.example.sims.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,6 +18,7 @@ public class StockMovement {
 
     @ManyToOne
     @JoinColumn(name = "inventory_item_id")
+//    @JsonBackReference
     private InventoryItem inventoryItem;
 
     @ManyToOne(fetch = FetchType.LAZY)

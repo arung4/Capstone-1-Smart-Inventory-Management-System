@@ -142,14 +142,40 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+         console.log("Data: ", data);
+
+
         data.forEach(item => {
             const row = document.createElement('tr');
+
+            // Determine quantity class
+                                          const quantityClass = item.quantity < 5 ? 'quantity-low' : 'quantity-normal';
+
+                                          // Determine expiry status
+                                          const expiryDate = new Date(item.expiryDate);
+                                          const today = new Date();
+                                          const daysToExpiry = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
+
+
+                                          // expiry status logic
+                                          let expiryStatusClass = "status-normal";
+                                          let expiryStatusText = "Normal";
+
+                                         if (daysToExpiry < 0) {
+                                                            expiryStatusClass = 'status-danger';
+                                                            expiryStatusText = 'Expired';
+                                                        } else if (daysToExpiry <= 10) {
+                                                            expiryStatusClass = 'status-warning';
+                                                            expiryStatusText = 'Expiring Soon';
+                                                        }
+
+
             row.innerHTML = `
                 <td>${item.date || ''}</td>
                 <td>${item.name || ''}</td>
                 <td>${item.category || ''}</td>
-                <td>${item.quantity || 0}</td>
-                <td>${item.price ? '$' + item.price.toFixed(2) : ''}</td>
+                <td class = "${quantityClass}" >${item.quantity || 0}</td>
+                <td>${item.price ? '₹' + item.price.toFixed(2) : ''}</td>
                 <td class="${getStatusClass(item.status)}">${item.status || 'OK'}</td>
             `;
             tableBody.appendChild(row);

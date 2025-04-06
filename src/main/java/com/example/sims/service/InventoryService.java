@@ -5,10 +5,12 @@ import com.example.sims.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class InventoryService {
+
     @Autowired
     private InventoryRepository inventoryRepository;
 
@@ -39,6 +41,17 @@ public class InventoryService {
     // get inventory items by category
     public List<InventoryItem> getItemByCategory(String category){
         return inventoryRepository.findByCategory(category);
+    }
+
+    public List<InventoryItem> getLowStockItems(int threeshold) {
+        return inventoryRepository.findByQuantityLessThan(threeshold);
+    }
+
+    public List<InventoryItem> getExpirySoonItems (int daysThreshold) {
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(daysThreshold);
+
+        return inventoryRepository.findByExpiryDateBetween(startDate, endDate);
     }
    
 }

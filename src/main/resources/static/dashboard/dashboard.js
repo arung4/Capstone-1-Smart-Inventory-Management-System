@@ -26,6 +26,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('totalItems').textContent = statsData.totalItems;
                 document.getElementById('lowStockItems').textContent = statsData.lowStockItems;
                 document.getElementById('expiringSoonItems').textContent = statsData.expiringSoonItems;
+
+
+
+                // Handling click operation on stats
+
+                // 1. Go to the inventory list page
+                document.querySelector(".items").addEventListener("click", () => {
+                      window.location.href = '../inventory/list.html';
+                })
+
+                // 2. Fetch the low stock items
+
+
+                // 3. Fetch the expiry soon items
             }
 
         // Load activity logs (only for admin)
@@ -73,6 +87,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (movementsResponse.ok) {
             const movements = await movementsResponse.json();
+
+             console.log("Movements: ", movements);
+
             const movementsTable = document.querySelector('#stockMovementsTable tbody');
 
             movements.forEach(movement => {
@@ -103,3 +120,119 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = '../auth/login.html';
     });
 });
+
+
+
+
+// Function to fetch and display low stock items
+
+// CONSTRAINTS
+const Low_Stock_Value = 5;
+const Expiry_Date_value = 30;
+ async function showLowStockItems(){
+    try{
+    const response = await fetch('http://localhost:8080/api/dashboard/low-stock', {
+      headers: {
+        'Authorization' : `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if(response.ok){
+           const items = await response.json();
+           const tableBody = document.querySelector('#lowStockTable tbody');
+          tableBody.innerHTML = ''; // CLEAR EXISTING DATA
+
+          // Hide if expiry table is present
+          document.getElementById("expiringSoonTableContainer").style.display = 'none';
+
+          // show low stock table
+            const container = document.getElementById('lowStockTableContainer');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+
+            if(container.style.display === 'none') return;
+
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                const statusClass = item.quantity < Low_Stock_Value ? 'status-low' : 'status-ok';
+
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.category}</td>
+                    <td class = "price-cell">₹${item.price.toFixed(2)}</td>
+                    <td class = "${statusClass}">${item.quantity}</td>
+                    <td>${item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A'}</td>
+                    <td>${item.supplier}</td>
+                `;
+                tableBody.appendChild(row);
+
+            });
+     }
+    }catch(error){
+           console.error('Error fetching low stock items:', error);
+                alert('Failed to load low stock items');
+    }
+ }
+
+ // Function to fetch and display expiring soon items
+ async function showExpiringSoonItems() {
+     try {
+         const response = await fetch('http://localhost:8080/api/dashboard/expiring-soon', {
+             headers: {
+                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+             }
+         });
+
+         if (response.ok) {
+             const items = await response.json();
+             const tableBody = document.querySelector('#expiringSoonTable tbody');
+             tableBody.innerHTML = ''; // Clear existing rows
+
+             // Hide other table if visible
+             document.getElementById('lowStockTableContainer').style.display = 'none';
+
+             // Show this table
+             const container = document.getElementById('expiringSoonTableContainer');
+             container.style.display = container.style.display === 'none' ? 'block' : 'none';
+
+             if (container.style.display === 'none') return;
+
+             items.forEach(item => {
+                 const row = document.createElement('tr');
+                 const today = new Date();
+                 const expiryDate = new Date(item.expiryDate);
+                 const diffTime = expiryDate - today;
+                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                 let status, statusClass;
+                 if (diffDays <= 7) {
+                     status = 'Critical';
+                     statusClass = 'status-low';
+                 } else if (diffDays <= Expiry_Date_value) {
+                     status = 'Warning';
+                     statusClass = 'status-warning';
+                 } else {
+                     status = 'Ok';
+                     statusClass = 'status-ok';
+                 }
+                const stockStatus = item.quantity < Low_Stock_Value ? 'status-low' : 'status-ok';
+
+                 row.innerHTML = `
+                     <td>${item.name}</td>
+                     <td>${item.category}</td>
+                     <td class = "price-cell" >₹${item.price.toFixed(2)}</td>
+                     <td class = "${stockStatus}">${item.quantity}</td>
+                     <td>${new Date(item.expiryDate).toLocaleDateString()}</td>
+                     <td class="${statusClass}">${status} (${diffDays} days)</td>
+                 `;
+                 tableBody.appendChild(row);
+             });
+         }
+     } catch (error) {
+         console.error('Error fetching expiring soon items:', error);
+         alert('Failed to load expiring soon items');
+     }
+ }
+
+ // Add event listeners to the stat cards (replace your existing click handlers)
+ document.querySelector(".stock-items").addEventListener("click", showLowStockItems);
+ document.querySelector(".expiry-items").addEventListener("click", showExpiringSoonItems);
