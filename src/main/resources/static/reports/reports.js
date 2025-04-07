@@ -31,17 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
             let url;
             switch(reportType) {
                 case 'daily':
-                    url = 'http://localhost:8080/api/reports/daily-json';
+                    url = 'http://localhost:8080/api/reports/stock-movement/daily-json';
                     break;
                 case 'weekly':
-                    url = 'http://localhost:8080/api/reports/weekly-json';
+                    url = 'http://localhost:8080/api/reports/stock-movement/weekly-json';
                     break;
                 case 'custom':
                     if (!startDate || !endDate) {
                         alert('Please select both start and end dates');
                         return;
                     }
-                    url = `http://localhost:8080/api/reports/custom-json?startDate=${startDate}&endDate=${endDate}`;
+                    url = `http://localhost:8080/api/reports/stock-movement/custom-json?startDate=${startDate}&endDate=${endDate}`;
                     break;
             }
 
@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             switch(reportType) {
                 case 'daily':
-                    url = 'http://localhost:8080/api/reports/daily';
+                    url = 'http://localhost:8080/api/reports/stock-movement/daily/csv';
                     filename = `daily_report_${new Date().toISOString().split('T')[0]}.csv`;
                     break;
                 case 'weekly':
-                    url = 'http://localhost:8080/api/reports/weekly';
+                    url = 'http://localhost:8080/api/reports/stock-movement/weekly/csv';
                     filename = `weekly_report_${new Date().toISOString().split('T')[0]}.csv`;
                     break;
                 case 'custom':
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert('Please select both start and end dates');
                         return;
                     }
-                    url = `http://localhost:8080/api/reports/custom?startDate=${startDate}&endDate=${endDate}`;
+                    url = `http://localhost:8080/api/reports/stock-movement/custom/csv?startDate=${startDate}&endDate=${endDate}`;
                     filename = `custom_report_${startDate}_to_${endDate}.csv`;
                     break;
             }
@@ -148,43 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
         data.forEach(item => {
             const row = document.createElement('tr');
 
-            // Determine quantity class
-                                          const quantityClass = item.quantity < 5 ? 'quantity-low' : 'quantity-normal';
+            // Adding CSS class
+              const quantityClass = item.newQuantity < 5 ? 'quantity-low' : 'quantity-normal';
+              const movementClass = item.movementType === 'ADD' ? 'status-normal' : 'status-danger';
 
-                                          // Determine expiry status
-                                          const expiryDate = new Date(item.expiryDate);
-                                          const today = new Date();
-                                          const daysToExpiry = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
-
-
-                                          // expiry status logic
-                                          let expiryStatusClass = "status-normal";
-                                          let expiryStatusText = "Normal";
-
-                                         if (daysToExpiry < 0) {
-                                                            expiryStatusClass = 'status-danger';
-                                                            expiryStatusText = 'Expired';
-                                                        } else if (daysToExpiry <= 10) {
-                                                            expiryStatusClass = 'status-warning';
-                                                            expiryStatusText = 'Expiring Soon';
-                                                        }
-
+              const quantityChangeText = item.movementType === 'ADD' ? `+${item.quantityChange}` : `-${item.quantityChange}`;
 
             row.innerHTML = `
-                <td>${item.date || ''}</td>
-                <td>${item.name || ''}</td>
-                <td>${item.category || ''}</td>
-                <td class = "${quantityClass}" >${item.quantity || 0}</td>
-                <td>${item.price ? '₹' + item.price.toFixed(2) : ''}</td>
-                <td class="${getStatusClass(item.status)}">${item.status || 'OK'}</td>
+                <td>${new Date(item.date).toLocaleString() || ''}</td>
+                <td>${item.itemName || ''}</td>
+                <td class = "${movementClass}">${item.movementType || ''}</td>
+                <td class = "${movementClass}">${quantityChangeText}</td>
+                <td>${item.previousQuantity || ''}</td>
+                <td class = "${quantityClass}">${item.newQuantity || ''}</td>
+                <td>${item.user || ''}</td>
+                <td>${item.notes || ''}</td>
             `;
             tableBody.appendChild(row);
         });
     }
 
-    function getStatusClass(status) {
-        if (!status) return '';
-        return status === 'LOW_STOCK' ? 'negative' :
-               status === 'NEAR_EXPIRY' ? 'warning' : '';
-    }
 });

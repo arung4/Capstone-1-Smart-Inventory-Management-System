@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.example.sims.model.StockMovement;
+import com.example.sims.repository.StockMovementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,74 +20,102 @@ import com.example.sims.repository.InventoryRepository;
 
 @Service
 public class ReportService {
-    private final InventoryRepository itemRepository;
-    private final AlertRepository alertRepository;
+    private final StockMovementRepository stockMovementRepository;
 
     @Autowired
-    public ReportService(InventoryRepository itemRepository,
-                         AlertRepository alertRepository) {
-        this.itemRepository = itemRepository;
-        this.alertRepository = alertRepository;
+    public ReportService(StockMovementRepository stockMovementRepository) {
+        this.stockMovementRepository = stockMovementRepository;
     }
 
+    // CSV Report Generators
+
     // Daily stock report
-    public byte[] generateDailyReport() {
+    public byte[] generateDailyStockMovementReportCSV() {
         LocalDate today = LocalDate.now();
-        return generateStockMovementReport(today, today);
+        return generateStockMovementReportCSV(today, today);
     }
 
     // Weekly stock report
-    public byte[] generateWeeklyReport() {
+    public byte[] generateWeeklyStockMovementReportCSV() {
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(6); // Last 7 days
-        return generateStockMovementReport(startDate, endDate);
+        return generateStockMovementReportCSV(startDate, endDate);
     }
 
     // Custom date range report
-    public byte[] generateCustomReport(LocalDate startDate, LocalDate endDate) {
-        return generateStockMovementReport(startDate, endDate);
+    public byte[] generateCustomStockMovementReportCSV(LocalDate startDate, LocalDate endDate) {
+        return generateStockMovementReportCSV(startDate, endDate);
     }
 
-    private byte[] generateStockMovementReport(LocalDate startDate, LocalDate endDate) {
-        List<InventoryItem> items = itemRepository.findByLastUpdatedBetween(
-                startDate.atStartOfDay(),
-                endDate.atTime(23, 59, 59)
-        );
+    private byte[] generateStockMovementReportCSV(LocalDate startDate, LocalDate endDate) {
 
-        List<Alert> alerts = alertRepository.findByCreatedAtBetween(
-                startDate.atStartOfDay(),
-                endDate.atTime(23, 59, 59)
-        );
+    List<StockMovement> movements = stockMovementRepository.findByMovementDateBetween(
+            startDate.atStartOfDay(),
+            endDate.atTime(23,59,59)
+    );
+      StringBuilder csv = new StringBuilder();
 
-        StringBuilder csv = new StringBuilder();
-        // CSV Header
-        csv.append("Date,Item Name,Category,Current Quantity,Price,Status\n");
+      // CSV Header
+        csv.append("Date, Item, Movement Type, Quantity Change, Previous Quantity, New Quantity, User, Notes\n");
 
-        // Add items
-        items.forEach(item -> {
-            csv.append(item.getLastUpdated().toLocalDate())
+        // Add Movements
+        movements.forEach(movement -> {
+            csv.append(movement.getMovementDate().toLocalDate())
                     .append(",")
-                    .append(escapeCsv(item.getName()))
+                    .append(escapeCsv(movement.getInventoryItem().getName()))
                     .append(",")
-                    .append(escapeCsv(item.getCategory()))
+                    .append(movement.getMovementType())
                     .append(",")
-                    .append(item.getQuantity())
+                    .append(movement.getQuantityChange())
                     .append(",")
-                    .append(item.getPrice())
+                    .append(movement.getPreviousQuantity())
                     .append(",")
-                    .append(getItemStatus(item))
+                    .append(movement.getNewQuantity())
+                    .append(",")
+                    .append(escapeCsv(movement.getUser().getEmail()))
+                    .append(",")
+                    .append(escapeCsv(movement.getNotes()))
                     .append("\n");
         });
 
-        // Add alerts if needed
-        alerts.forEach(alert -> {
-            csv.append(alert.getCreatedAt().toLocalDate())
-                    .append(",ALERT: ")
-                    .append(escapeCsv(alert.getMessage()))
-                    .append(",,,,,\n");
-        });
+         return csv.toString().getBytes(StandardCharsets.UTF_8);
+    }
 
-        return csv.toString().getBytes(StandardCharsets.UTF_8);
+
+   // JSON Report Generators
+   public List<Map<String, Object>> generateDailyStockMovementReportJson() {
+       LocalDate today = LocalDate.now();
+       return generateStockMovementReportJson(today, today);
+   }
+
+    public List<Map<String, Object>> generateWeeklyStockMovementReportJson() {
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = endDate.minusDays(6); // Last 7 days
+        return generateStockMovementReportJson(startDate, endDate);
+    }
+
+    public List<Map<String, Object>> generateCustomStockMovementReportJson(LocalDate startDate, LocalDate endDate) {
+        return generateStockMovementReportJson(startDate, endDate);
+    }
+
+    private List<Map<String, Object>> generateStockMovementReportJson(LocalDate startDate, LocalDate endDate) {
+        List<StockMovement> movements = stockMovementRepository.findByMovementDateBetween(
+                startDate.atStartOfDay(),
+                endDate.atTime(23, 59, 59)
+        );
+
+        return movements.stream().map(movement -> {
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("date", movement.getMovementDate().toString());
+            row.put("itemName", movement.getInventoryItem().getName());
+            row.put("movementType", movement.getMovementType());
+            row.put("quantityChange", movement.getQuantityChange());
+            row.put("previousQuantity", movement.getPreviousQuantity());
+            row.put("newQuantity", movement.getNewQuantity());
+            row.put("user", movement.getUser().getEmail());
+            row.put("notes", movement.getNotes());
+            return row;
+        }).collect(Collectors.toList());
     }
 
     private String escapeCsv(String input) {
@@ -92,52 +123,4 @@ public class ReportService {
         return "\"" + input.replace("\"", "\"\"") + "\"";
     }
 
-    private String getItemStatus(InventoryItem item) {
-        if (item.getQuantity() < 5) return "LOW_STOCK";
-        if (item.getExpiryDate() != null &&
-                item.getExpiryDate().isBefore(LocalDate.now().plusDays(7))) {
-            return "NEAR_EXPIRY";
-        }
-        return "OK";
-    }
-
-
-    // Get Reports in CSV format
-    public List<Map<String, Object>> generateStockMovementReportJson(LocalDate startDate, LocalDate endDate) {
-        List<InventoryItem> items = itemRepository.findByLastUpdatedBetween(
-                startDate.atStartOfDay(),
-                endDate.atTime(23, 59, 59)
-        );
-
-        List<Alert> alerts = alertRepository.findByCreatedAtBetween(
-                startDate.atStartOfDay(),
-                endDate.atTime(23, 59, 59)
-        );
-
-        List<Map<String, Object>> reportData = new ArrayList<>();
-
-        items.forEach(item -> {
-            Map<String, Object> row = new LinkedHashMap<>();
-            row.put("date", item.getLastUpdated().toLocalDate().toString());
-            row.put("name", item.getName());
-            row.put("category", item.getCategory());
-            row.put("quantity", item.getQuantity());
-            row.put("price", item.getPrice());
-            row.put("status", getItemStatus(item));
-            reportData.add(row);
-        });
-
-        alerts.forEach(alert -> {
-            Map<String, Object> row = new LinkedHashMap<>();
-            row.put("date", alert.getCreatedAt().toLocalDate().toString());
-            row.put("name", "ALERT: " + alert.getMessage());
-            row.put("category", "ALERT");
-            row.put("quantity", null);
-            row.put("price", null);
-            row.put("status", alert.getType().toString());
-            reportData.add(row);
-        });
-
-        return reportData;
-    }
 }

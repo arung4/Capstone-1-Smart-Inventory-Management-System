@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.sims.service.ReportService;
 
 @RestController
-@RequestMapping("/api/reports")
+@RequestMapping("/api/reports/stock-movement")
 public class ReportController {
     private final ReportService reportService;
 
@@ -30,28 +30,28 @@ public class ReportController {
     }
 
     // Reports in CSV format
-    @GetMapping("/daily")
+    @GetMapping("/daily/csv")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    public ResponseEntity<ByteArrayResource> downloadDailyReport() {
-        byte[] report = reportService.generateDailyReport();
-        return createReportResponse(report, "daily_inventory_report.csv");
+    public ResponseEntity<ByteArrayResource> downloadDailyReportCSV() {
+        byte[] report = reportService.generateDailyStockMovementReportCSV();
+        return createReportResponse(report, "daily_stock_movement_report.csv");
     }
 
-    @GetMapping("/weekly")
+    @GetMapping("/weekly/csv")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    public ResponseEntity<ByteArrayResource> downloadWeeklyReport() {
-        byte[] report = reportService.generateWeeklyReport();
-        return createReportResponse(report, "weekly_inventory_report.csv");
+    public ResponseEntity<ByteArrayResource> downloadWeeklyReportCSV() {
+        byte[] report = reportService.generateWeeklyStockMovementReportCSV();
+        return createReportResponse(report, "weekly_stock_movement_report.csv");
     }
 
-    @GetMapping("/custom")
+    @GetMapping("/custom/csv")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    public ResponseEntity<ByteArrayResource> downloadCustomReport(
+    public ResponseEntity<ByteArrayResource> downloadCustomReportCSV(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        byte[] report = reportService.generateCustomReport(startDate, endDate);
+        byte[] report = reportService.generateCustomStockMovementReportCSV(startDate,endDate);
         return createReportResponse(report,
-                String.format("inventory_report_%s_to_%s.csv", startDate, endDate));
+                String.format("stock_movement_report_%s_to_%s.csv", startDate, endDate));
     }
 
     private ResponseEntity<ByteArrayResource> createReportResponse(byte[] report, String filename) {
@@ -69,18 +69,13 @@ public class ReportController {
     @GetMapping("/daily-json")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public ResponseEntity<List<Map<String, Object>>> getDailyReportJson() {
-        return ResponseEntity.ok(reportService.generateStockMovementReportJson(
-                LocalDate.now(),
-                LocalDate.now()
-        ));
+        return ResponseEntity.ok(reportService.generateDailyStockMovementReportJson());
     }
 
     @GetMapping("/weekly-json")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public ResponseEntity<List<Map<String, Object>>> getWeeklyReportJson() {
-        return ResponseEntity.ok(reportService.generateStockMovementReportJson(
-                LocalDate.now().minusDays(6),
-                LocalDate.now()
+        return ResponseEntity.ok(reportService.generateWeeklyStockMovementReportJson(
         ));
     }
 
@@ -89,7 +84,7 @@ public class ReportController {
     public ResponseEntity<List<Map<String, Object>>> getCustomReportJson(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return ResponseEntity.ok(reportService.generateStockMovementReportJson(
+        return ResponseEntity.ok(reportService.generateCustomStockMovementReportJson(
                 startDate,
                 endDate
         ));

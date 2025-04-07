@@ -2,6 +2,7 @@
 :root {
     --primary-color: #4361ee;
     --secondary-color: #3f37c9;
+     --danger-color: #f44336;
     --border-radius: 8px;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -222,6 +223,26 @@
       align-items: center;
       margin-bottom: 1rem;
   }
+
+ .status-normal {
+     color: green;
+     font-weight: bold;
+ }
+
+ .status-danger {
+    color: var(--danger-color);
+    font-weight: bold;
+ }
+
+ .quantity-low{
+    color: var(--danger-color);
+    font-weight: bold;
+ }
+
+ .quantity-normal{
+    color: green;
+    font-weight: bold;
+ }
 
   /* Add responsive styles */
   @media (max-width: 768px) {
