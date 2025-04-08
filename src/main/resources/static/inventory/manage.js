@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inventoryForm").addEventListener("submit", handleFormSubmit);
 });
 
+
+// To load Existing Item data when click on Edit button
 async function loadItemData(itemId) {
     try {
         console.log(`Fetching item ${itemId}...`); // Debug log
@@ -73,6 +75,8 @@ async function loadItemData(itemId) {
     }
 }
 
+
+// Function to execute Edit or Add New Item
 async function handleFormSubmit(e) {
     e.preventDefault();
     

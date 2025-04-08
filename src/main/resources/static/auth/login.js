@@ -14,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         });
         
         const res = await response.json();
-        console.log("Full Response:", res); // Debug entire response
+        console.log("Full Response:", res);
         
         if (response.ok) {
             // Check where your token is actually located in the response
@@ -29,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             console.log("Token to be stored:", token);
             localStorage.setItem('token', token);
             
-            // Add slight delay before redirect to see logs
+            // Adding slight delay before redirect to see logs
             setTimeout(() => {
                 window.location.href = '../dashboard/dashboard.html';
             }, 500);

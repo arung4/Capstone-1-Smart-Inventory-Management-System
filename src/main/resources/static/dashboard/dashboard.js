@@ -36,10 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                       window.location.href = '../inventory/list.html';
                 })
 
-                // 2. Fetch the low stock items
-
-
-                // 3. Fetch the expiry soon items
             }
 
         // Load activity logs (only for admin)

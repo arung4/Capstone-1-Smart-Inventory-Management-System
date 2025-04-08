@@ -131,6 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '../auth/login.html';
     });
 
+});
+
+
+
+// Fucntion to Show data on the table on webpage
     function populateReportTable(data) {
         const tableBody = document.getElementById('reportTableBody');
         tableBody.innerHTML = '';
@@ -159,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${item.itemName || ''}</td>
                 <td class = "${movementClass}">${item.movementType || ''}</td>
                 <td class = "${movementClass}">${quantityChangeText}</td>
-                <td>${item.previousQuantity || ''}</td>
+                <td>${item.previousQuantity || '0'}</td>
                 <td class = "${quantityClass}">${item.newQuantity || ''}</td>
                 <td>${item.user || ''}</td>
                 <td>${item.notes || ''}</td>
@@ -167,5 +172,3 @@ document.addEventListener('DOMContentLoaded', () => {
             tableBody.appendChild(row);
         });
     }
-
-});

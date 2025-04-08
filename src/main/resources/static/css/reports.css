@@ -1,4 +1,4 @@
-/* reports.css - Inventory Reports */
+
 :root {
     --primary-color: #4361ee;
     --secondary-color: #3f37c9;
@@ -180,8 +180,6 @@
     }
   }
 
-  /* Added css for the reports */
-  /* Add these to your existing reports.css */
 
   .btn-primary {
       background-color: var(--primary-color);

@@ -1,31 +1,14 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    // Check authentication
-    if (!localStorage.getItem('token')) {
-        window.location.href = '../../auth/login.html';
-        return;
-    }
 
-    const userRole = getRoleFromToken();
+  // Load inventory data
+    const loadInventory = async (userRole) => {
 
-       if (userRole[0] === "ROLE_STAFF") {
-           // Hide Add Item button
-           document.getElementById("addItemBtn").style.display = 'none';
-
-           // Remove Actions header
-           const headers = document.querySelectorAll('th');
-           headers[headers.length - 1].remove(); // Remove last header (Actions)
-
-       }
-
-    console.log("Role: ", userRole[0]);
-    // Load inventory data
-    const loadInventory = async () => {
+    console.log("Load Invenotory ", userRole[0]);
         try {
             const response = await fetch('http://localhost:8080/api/inventory', {
               headers: {
                       'Authorization': `Bearer ${localStorage.getItem('token')}`
                      }
-            
+
             });
 
             if (!response.ok) {
@@ -33,20 +16,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const result = await response.json();
-            
+
             // Check if data exists in response
             if (!result.data || !Array.isArray(result.data)) {
                 throw new Error('Invalid data format from server');
             }
 
             console.log("API Response:", result);
-            
+
             const tableBody = document.getElementById('inventoryTableBody');
             tableBody.innerHTML = '';
-            
+
             result.data.forEach(item => {
                 const row = document.createElement('tr');
-                
+
                  // Determine quantity class
                       const quantityClass = item.quantity < 5 ? 'quantity-low' : 'quantity-normal';
 
@@ -95,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 tableBody.appendChild(row);
             });
-            
+
             // Add event listeners to buttons
             document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -103,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     window.location.href = `manage.html?id=${itemId}`;
                 });
             });
-            
+
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const itemId = e.target.getAttribute('data-id');
@@ -115,9 +98,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                                 }
                             });
-                            
+
                             if (deleteResponse.ok) {
-                                loadInventory(); // Refresh the list
+                                loadInventory(userRole); // Refresh the list
                             } else {
                                 const errorData = await deleteResponse.json();
                                 throw new Error(errorData.message || 'Failed to delete item');
@@ -129,15 +112,39 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
             });
-            
+
         } catch (error) {
             console.error('Inventory load error:', error);
             alert(`Error: ${error.message}`);
         }
     };
 
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Check authentication
+    if (!localStorage.getItem('token')) {
+        window.location.href = '../../auth/login.html';
+        return;
+    }
+
+    const userRole = getRoleFromToken();
+
+       if (userRole[0] === "ROLE_STAFF") {
+           // Hide Add Item button
+           document.getElementById("addItemBtn").style.display = 'none';
+
+           // Remove Actions header
+           const headers = document.querySelectorAll('th');
+           headers[headers.length - 1].remove(); // Remove last header (Actions)
+
+       }
+
+    console.log("Role: ", userRole[0]);
+
     // Initial load
-    await loadInventory();
+    await loadInventory(userRole);
     
     // Add item button
     document.getElementById('addItemBtn').addEventListener('click', () => {
@@ -161,3 +168,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = '../auth/login.html';
     });
 });
+
+
+
