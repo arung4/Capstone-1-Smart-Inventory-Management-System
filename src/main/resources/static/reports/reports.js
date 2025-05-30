@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${item.itemName || ''}</td>
                 <td class = "${movementClass}">${item.movementType || ''}</td>
                 <td class = "${movementClass}">${quantityChangeText}</td>
-                <td>${item.previousQuantity || '0'}</td>
+
                 <td class = "${quantityClass}">${item.newQuantity || ''}</td>
                 <td>${item.user || ''}</td>
                 <td>${item.notes || ''}</td>

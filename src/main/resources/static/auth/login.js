@@ -15,11 +15,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         
         const res = await response.json();
         console.log("Full Response:", res);
-        
-        if (response.ok) {
+
+       console.log("status", res.status);
+        if (res.status === 200) {
             // Check where your token is actually located in the response
             const token = res.token || res.data || res.accessToken;
-            
+            alert("User logged in successfully")
             if (!token) {
                 console.error("No token found in response:", res);
                 alert("Login successful but no token received");
@@ -28,13 +29,14 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             
             console.log("Token to be stored:", token);
             localStorage.setItem('token', token);
-            
+
+
             // Adding slight delay before redirect to see logs
             setTimeout(() => {
                 window.location.href = '../dashboard/dashboard.html';
             }, 500);
             
-        } else {
+        } if(res.status === 401) {
             const errorMsg = res.message || 'Login failed. Please check your credentials.';
             alert(errorMsg);
         }

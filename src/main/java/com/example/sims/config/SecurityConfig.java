@@ -45,7 +45,7 @@ public class SecurityConfig {
                     // Api for reports generations
                     .requestMatchers(HttpMethod.GET, "/api/reports/**").hasAnyRole("ADMIN", "STAFF")
                     .requestMatchers(HttpMethod.GET, "/api/dashboard/**").hasAnyRole("ADMIN", "STAFF")
-                    .requestMatchers(HttpMethod.GET, "/api/activities/recent").hasAnyRole("ADMIN","STAFF")
+                    .requestMatchers(HttpMethod.GET, "/api/activities/recent").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/api/activities/stock-movements").hasAnyRole("ADMIN","STAFF")
                 .anyRequest().authenticated()
             )

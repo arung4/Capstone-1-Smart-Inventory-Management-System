@@ -61,7 +61,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .map(role -> role.startsWith("ROLE_") ? role : "ROLE_" + role)
                         .collect(Collectors.toSet());
 
-                       // 3. Get authorities from UserDetails
+                       // 3. Get authorities from UserDetails - extract roles from db
                        Set<String> userAuthorities = userDetails.getAuthorities().stream()
                        .map(GrantedAuthority::getAuthority)
                        .collect(Collectors.toSet());
@@ -76,7 +76,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     Collection<? extends GrantedAuthority> authorities = tokenRoles.stream()
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
-    
+                        // authenticates the request and sets it in Spring security context
                         UsernamePasswordAuthenticationToken authentication = 
                             new UsernamePasswordAuthenticationToken(
                                 userDetails, 

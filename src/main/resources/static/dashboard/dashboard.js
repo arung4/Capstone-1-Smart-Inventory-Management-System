@@ -21,8 +21,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
+
+
             if (statsResponse.ok) {
                 const statsData = await statsResponse.json();
+                console.log("Dashboard Stats: ", statsData);
                 document.getElementById('totalItems').textContent = statsData.totalItems;
                 document.getElementById('lowStockItems').textContent = statsData.lowStockItems;
                 document.getElementById('expiringSoonItems').textContent = statsData.expiringSoonItems;
@@ -49,6 +52,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (activityResponse.ok) {
                 const activities = await activityResponse.json();
+
+                console.log("Activity Logs: ", activities);
                 const activityList = document.querySelector('#activityList tbody');
 
                 activities.forEach(activity => {
@@ -91,14 +96,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             movements.forEach(movement => {
 
                // Add class based on quantity change
-                 const quantityClass = movement.quantityChange > 0 ? 'quantity-positive' : 'quantity-negative';
+
+                 const movementClass = movement.movementType === 'ADD' ? 'status-normal' : 'status-danger';
+                 const quantityChangeText = movement.movementType === 'ADD' ? `+${movement.quantityChange}` : `-${movement.quantityChange}`;
+
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${new Date(movement.movementDate).toLocaleString()}</td>
                     <td>${movement.inventoryItem.name}</td>
                     <td class="${movement.movementType === 'ADD' ? 'action-add' : 'action-remove'}">${movement.movementType}</td>
-                    <td class = "${quantityClass}">${movement.quantityChange}</td>
+                    <td class = "${movementClass}">${quantityChangeText}</td>
                     <td>${movement.user.email}</td>
                 `;
                 movementsTable.appendChild(row);
@@ -116,7 +124,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = '../auth/login.html';
     });
 });
-
 
 
 

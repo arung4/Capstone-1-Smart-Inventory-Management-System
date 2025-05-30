@@ -18,7 +18,6 @@ public class StockMovement {
 
     @ManyToOne
     @JoinColumn(name = "inventory_item_id")
-//    @JsonBackReference
     private InventoryItem inventoryItem;
 
     @ManyToOne(fetch = FetchType.LAZY)

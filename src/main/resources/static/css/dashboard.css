@@ -339,6 +339,16 @@ tbody tr:hover {
     color: var(--secondary-color);
 }
 
+ .status-normal {
+     color: green;
+     font-weight: bold;
+ }
+
+ .status-danger {
+    color: var(--danger-color);
+    font-weight: bold;
+ }
+
 
 .status-low {
     color: var(--danger-color);

@@ -1,7 +1,6 @@
 package com.example.sims.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -31,7 +30,6 @@ public class InventoryItem {
     // Mapping to stock_movements
 
     @OneToMany( fetch = FetchType.LAZY,mappedBy = "inventoryItem", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonManagedReference
     @JsonIgnoreProperties("inventoryItem")  // Ignores the back-reference
     private List<StockMovement> stockMovements = new ArrayList<>();
 
@@ -48,7 +46,6 @@ public class InventoryItem {
         this.lastUpdated = lastUpdated;
     }
 
-    // Add to your existing @PreUpdate and @PrePersist methods if you have them
     @PreUpdate
     @PrePersist
     public void updateTimestamps() {

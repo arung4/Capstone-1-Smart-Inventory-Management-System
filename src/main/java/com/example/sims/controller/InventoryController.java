@@ -5,6 +5,7 @@ import com.example.sims.model.Response;
 import com.example.sims.model.User;
 import com.example.sims.service.ActivityLogService;
 import com.example.sims.service.InventoryService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+//@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/api/inventory")
 public class InventoryController {
@@ -27,22 +28,22 @@ public class InventoryController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    public Response<List<InventoryItem>> getAllItems(@RequestHeader("Authorization") String authHeader) {
+    public Response<List<InventoryItem>> getAllItems(@RequestHeader("Authorization") String authHeader, HttpServletRequest request) {
 
         String token = authHeader.substring(7);
         List<InventoryItem> items = inventoryService.getAllInventoryItems();
-        activityLogService.logActivity(token, "INVENTORY_VIEW", "Viewed all inventory items", null);
+        activityLogService.logActivity(token, "INVENTORY_VIEW", "Viewed all inventory items", request.getRemoteAddr());
         return new Response<>(HttpStatus.OK.value(), "Items retrieved successfully", items);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    public Response<InventoryItem> getItemById(@PathVariable Long id, @RequestHeader("Authorization") String authHeader) {
+    public Response<InventoryItem> getItemById(@PathVariable Long id, @RequestHeader("Authorization") String authHeader, HttpServletRequest request) {
 
         String token = authHeader.substring(7);
         InventoryItem item = inventoryService.getItemById(id);
         activityLogService.logActivity(token, "INVENTORY_VIEW",
-                "Viewed inventory item: " + item.getName(), null);
+                "Viewed inventory item: " + item.getName(), request.getRemoteAddr());
         return new Response<>(HttpStatus.OK.value(), "Item retrieved successfully", item);
     }
 
@@ -62,7 +63,8 @@ public class InventoryController {
     public Response<InventoryItem> updateItem(
             @PathVariable Long id,
             @RequestBody InventoryItem item,
-            @RequestHeader("Authorization") String authHeader) {
+            @RequestHeader("Authorization") String authHeader,
+            HttpServletRequest request) {
 
          String token = authHeader.substring(7);
 
@@ -87,14 +89,14 @@ public class InventoryController {
 
         // Log the update activity
         activityLogService.logActivity(token, "INVENTORY_UPDATE",
-                "Updated item: " + updatedItem.getName(), null);
+                "Updated item: " + updatedItem.getName(), request.getRemoteAddr());
 
         return new Response<>(HttpStatus.OK.value(), "Item updated successfully", updatedItem);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Response<Void> deleteItem(@PathVariable Long id, @RequestHeader("Authorization") String authHeader) {
+    public Response<Void> deleteItem(@PathVariable Long id, @RequestHeader("Authorization") String authHeader, HttpServletRequest request) {
 
         String token = authHeader.substring(7);
         InventoryItem item = inventoryService.getItemById(id);
@@ -110,7 +112,7 @@ public class InventoryController {
         );
 
         activityLogService.logActivity(token, "INVENTORY_DELETE",
-                "Deleted item: " + item.getName(), null);
+                "Deleted item: " + item.getName(), request.getRemoteAddr());
 
         inventoryService.deleteItem(id);
 
@@ -121,12 +123,12 @@ public class InventoryController {
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public Response<List<InventoryItem>> getItemsByCategory(
             @PathVariable String category,
-            @RequestHeader("Authorization") String authHeader) {
+            @RequestHeader("Authorization") String authHeader, HttpServletRequest request) {
 
         String token = authHeader.substring(7);
         List<InventoryItem> items = inventoryService.getItemByCategory(category);
         activityLogService.logActivity(token, "INVENTORY_VIEW",
-                "Viewed items by category: " + category, null);
+                "Viewed items by category: " + category, request.getRemoteAddr());
 
         return new Response<>(HttpStatus.OK.value(),
                 "Items retrieved by category successfully", items);
